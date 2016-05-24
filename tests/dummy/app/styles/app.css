@@ -1,0 +1,68 @@
+body.ember-application {
+  margin: 0;
+  padding: 0;
+  background: #2C2C2C;
+  font-family: "Helvetica Neue";
+  font-size: 14px;
+}
+
+header {
+  height: 42px;
+  background: #F3F3F3;
+  font-weight: bold;
+  width: 500px;
+  padding: 12px 0.5em;
+  box-sizing: border-box;
+}
+
+.example-list {
+  position: absolute;
+  width: 500px;
+  top: 42px;
+  bottom: 0;
+  left: 0;
+  background: #f3f3f3;
+}
+
+.example-list_item {
+  padding: .5em;
+  box-sizing: border-box;
+  background-color: white;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  overflow: hidden;
+  display: flex;
+}
+
+.scroll-box {
+  overflow: hidden;
+}
+.scroll-box_body {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+}
+.scroll-box::before,
+.scroll-box::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  box-shadow: 0 0 5px 4px rgba(0,0,0,0.4);
+  z-index: 1;
+  transition: opacity 400ms;
+  opacity: 0;
+}
+.scroll-box::before {
+  top: 0;
+}
+.scroll-box::after {
+  bottom: 0;
+}
+.scroll-box:not(.scroll-box--at-top)::before,
+.scroll-box:not(.scroll-box--at-bottom)::after {
+  opacity: 1;
+}

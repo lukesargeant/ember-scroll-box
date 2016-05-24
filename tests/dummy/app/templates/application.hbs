@@ -1,3 +1,12 @@
-<h2 id="title">Welcome to Ember</h2>
+<header>Scroll box with css shadows</header>
+{{#scroll-box class="example-list"}}
+  {{~#each model.items as |item index|}}
+    <div class="example-list_item">{{item.name}}</div>
+  {{/each~}}
+{{/scroll-box}}
 
-{{outlet}}
+<!-- indicators -->
+<div style="position: absolute;right: 15%;top: 50%;">
+  <div class="monitor_near-top"></div>
+  <div class="monitor_near-bottom"></div>
+</div>

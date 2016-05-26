@@ -54,7 +54,7 @@ The following CSS can be applied to show shadows at the top and bottom when cont
   box-shadow: 0 0 5px 4px rgba(0,0,0,0.4);
   z-index: 1;
   transition: opacity 400ms;
-  opacity: 0;
+  opacity: 1;
 }
 .scroll-box::before {
   top: 0;
@@ -62,9 +62,9 @@ The following CSS can be applied to show shadows at the top and bottom when cont
 .scroll-box::after {
   bottom: 0;
 }
-.scroll-box:not(.scroll-box--at-top)::before,
-.scroll-box:not(.scroll-box--at-bottom)::after {
-  opacity: 1;
+.scroll-box.scroll-box--at-top::before,
+.scroll-box.scroll-box--at-bottom::after {
+  opacity: 0;
 }
 ```
 

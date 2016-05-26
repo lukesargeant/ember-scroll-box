@@ -7,7 +7,7 @@ its scroll handling. All functionality is covered by a suite of tests.
 
 ## How to install
 
-``ember install Ember-scroll-box``
+``ember install ember-scroll-box``
 
 ## Using the CSS hooks to style shadows/indicators
 

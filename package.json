@@ -1,7 +1,7 @@
 {
   "name": "ember-scroll-box",
-  "version": "1.0.0",
-  "description": "Ember addon to provide a scroll-box component",
+  "version": "1.0.1",
+  "description": "A component providing scroll css hooks and actions.",
   "directories": {
     "test": "tests"
   },

@@ -1,5 +1,7 @@
 /* jshint expr:true */
-import Ember from 'ember';
+import { run, later } from '@ember/runloop';
+
+import { A } from '@ember/array';
 import { expect } from 'chai';
 import {
   describeComponent,
@@ -49,7 +51,7 @@ describeComponent(
         this.on('atBottomSpy', () => this.set('atBottom', true));
         this.on('nearTopSpy', () => this.set('enteredUpperThreshold', true));
         this.on('nearBottomSpy', () => this.set('enteredLowerThreshold', true));
-        this.set('items', Ember.A(Array(100).fill(1)));
+        this.set('items', A(Array(100).fill(1)));
         this.render(hbs`
           <style>
             .test-item {
@@ -79,8 +81,8 @@ describeComponent(
 
       describe('When content overflows above and below', function() {
         beforeEach(function(done) {
-          Ember.run(() => this.$('.scroll-box_body').scrollTop(10).trigger('scroll'));
-          Ember.run.later(done, 100);
+          run(() => this.$('.scroll-box_body').scrollTop(10).trigger('scroll'));
+          later(done, 100);
         });
         it('does not have scroll-box--at-top css class', function() {
           expect(this.$('.subject').is('.scroll-box--at-top')).to.be.false;
@@ -92,8 +94,8 @@ describeComponent(
 
       describe('When it is scrolled to the top', function() {
         beforeEach(function(done) {
-          Ember.run(() => this.$('.scroll-box_body').scrollTop(0).trigger('scroll'));
-          Ember.run.later(done, 100);
+          run(() => this.$('.scroll-box_body').scrollTop(0).trigger('scroll'));
+          later(done, 100);
         });
         it('has scroll-box--at-top css class', function() {
           expect(this.$('.subject').is('.scroll-box--at-top')).to.be.true;
@@ -108,8 +110,8 @@ describeComponent(
 
       describe('When it is scrolled to the bottom', function() {
         beforeEach(function(done) {
-          Ember.run(() => this.$('.scroll-box_body').scrollTop(10000).trigger('scroll'));
-          Ember.run.later(done, 100);
+          run(() => this.$('.scroll-box_body').scrollTop(10000).trigger('scroll'));
+          later(done, 100);
         });
         it('has scroll-box--at-bottom css class', function() {
           expect(this.$('.subject').is('.scroll-box--at-bottom')).to.be.true;
@@ -124,8 +126,8 @@ describeComponent(
 
       describe('When it is scrolled into the upper threshold', function() {
         beforeEach(function(done) {
-          Ember.run(() => this.$('.scroll-box_body').scrollTop(10).trigger('scroll'));
-          Ember.run.later(done, 100);
+          run(() => this.$('.scroll-box_body').scrollTop(10).trigger('scroll'));
+          later(done, 100);
         });
         it('triggers a nearTop action', function() {
           expect(this.get('enteredUpperThreshold')).to.be.true;
@@ -134,8 +136,8 @@ describeComponent(
 
       describe('When it is scrolled into the lower threshold', function() {
         beforeEach(function(done) {
-          Ember.run(() => this.$('.scroll-box_body').scrollTop(4900).trigger('scroll'));
-          Ember.run.later(done, 100);
+          run(() => this.$('.scroll-box_body').scrollTop(4900).trigger('scroll'));
+          later(done, 100);
         });
         it('triggers a nearBottom action', function() {
           expect(this.get('enteredLowerThreshold')).to.be.true;

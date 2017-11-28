@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import { bind, throttle } from '@ember/runloop';
+import { computed, observer } from '@ember/object';
+import Component from '@ember/component';
 import layout from '../templates/components/scroll-box';
 
 /**
@@ -14,7 +16,7 @@ const THROTTLE = 50;
  * scroll shadows/loading spinners.
  * @class ScrollBoxComponent
  */
-const ScrollBoxComponent = Ember.Component.extend({
+const ScrollBoxComponent = Component.extend({
   layout,
   classNames: ['scroll-box'],
 
@@ -65,7 +67,7 @@ const ScrollBoxComponent = Ember.Component.extend({
    * yielded content.
    * @type {Ember.$}
    */
-  $scrollBody: Ember.computed(function() {
+  $scrollBody: computed(function() {
     return this.$().children('.scroll-box_body');
   }),
 
@@ -75,7 +77,7 @@ const ScrollBoxComponent = Ember.Component.extend({
    */
   didInsertElement() {
     // The handle scroll handler must be bound to appease jQuery's on/off.
-    this._handleScroll = Ember.run.bind(this, this._handleScroll);
+    this._handleScroll = bind(this, this._handleScroll);
     let $scrollBody = this.get('$scrollBody');
     $scrollBody.on('scroll', this._handleScroll);
     this._checkScroll();
@@ -87,7 +89,7 @@ const ScrollBoxComponent = Ember.Component.extend({
    * @return {[type]} [description]
    */
   _handleScroll() {
-    Ember.run.throttle(this, this._checkScroll, THROTTLE, false);
+    throttle(this, this._checkScroll, THROTTLE, false);
   },
 
   /**
@@ -106,25 +108,25 @@ const ScrollBoxComponent = Ember.Component.extend({
     this.set('isInThresholdBottom', scrollBottom < this.get('thresholdBottom'));
   },
 
-  _isAtTopChange: Ember.observer('isAtTop', function() {
+  _isAtTopChange: observer('isAtTop', function() {
     let isAtTop = this.get('isAtTop');
     this.$().toggleClass('scroll-box--at-top', isAtTop);
     this.sendAction('atTop');
   }),
 
-  _isAtBottomChange: Ember.observer('isAtBottom', function() {
+  _isAtBottomChange: observer('isAtBottom', function() {
     let isAtBottom = this.get('isAtBottom');
     this.$().toggleClass('scroll-box--at-bottom', isAtBottom);
     this.sendAction('atBottom');
   }),
 
-  _isInThresholdTopChange: Ember.observer('isInThresholdTop', function() {
+  _isInThresholdTopChange: observer('isInThresholdTop', function() {
     if (this.get('isInThresholdTop')) {
       this.sendAction('nearTop');
     }
   }),
 
-  _isInThresholdBottomChange: Ember.observer('isInThresholdBottom', function() {
+  _isInThresholdBottomChange: observer('isInThresholdBottom', function() {
     if (this.get('isInThresholdBottom')) {
       this.sendAction('nearBottom');
     }

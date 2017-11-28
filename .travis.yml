@@ -1,45 +1,33 @@
----
 language: node_js
 node_js:
-  # we recommend testing addons with the same minimum supported node version as Ember CLI
-  # so that your addon works for all apps
-  - "4"
-
+- '4'
 sudo: false
 dist: trusty
-
 addons:
   chrome: stable
-
 cache:
   directories:
-    - $HOME/.npm
-
+  - "$HOME/.npm"
 env:
   global:
-    # See https://git.io/vdao3 for details.
-    - JOBS=1
+  - JOBS=1
   matrix:
-    # we recommend new addons test the current and previous LTS
-    # as well as latest stable release (bonus points to beta/canary)
-    - EMBER_TRY_SCENARIO=ember-lts-2.8
-    - EMBER_TRY_SCENARIO=ember-lts-2.12
-    - EMBER_TRY_SCENARIO=ember-release
-    - EMBER_TRY_SCENARIO=ember-beta
-    - EMBER_TRY_SCENARIO=ember-canary
-    - EMBER_TRY_SCENARIO=ember-default
-
+  - EMBER_TRY_SCENARIO=ember-lts-2.8
+  - EMBER_TRY_SCENARIO=ember-lts-2.12
+  - EMBER_TRY_SCENARIO=ember-release
+  - EMBER_TRY_SCENARIO=ember-beta
+  - EMBER_TRY_SCENARIO=ember-canary
+  - EMBER_TRY_SCENARIO=ember-default
 matrix:
   fast_finish: true
   allow_failures:
-    - env: EMBER_TRY_SCENARIO=ember-canary
-
+  - env: EMBER_TRY_SCENARIO=ember-canary
 before_install:
-  - npm config set spin false
-  - npm install -g npm@4
-  - npm --version
-
+- npm config set spin false
+- npm install -g npm@4
+- npm --version
 script:
-  # Usually, it's ok to finish the test scenario without reverting
-  #  to the addon's original dependency state, skipping "cleanup".
-  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
+- node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
+deploy:
+  api_key:
+    secure: ZiXMxxYpTzSpT9S2coVT+7DcghxKINt/4KB32GK6TqwnXcMVg2sv+tKdRWVkZL0Ot0wBxVXfJlS4jDpfE7WSpfnz0qi6GiQCr9F8gn9ogqrbcH4lAZ04YGuRDGZwTnMQV9bqc9CQ7o9NcwGRftf6Vd6P0HdhZ2l/7s3q21dKoyZKolBVfRp3lEL/nDQpTYlI26YPgRwDqAeEUjhaYCnAe72YIUMtfIzqCzybigsZcfAQ/RHPWGXzrxN6FZM6KWtMd36qdex6yfsa54TejfJRLZ2AeFe4ZhtiYD68D+yD2OEuY4rmZ4/RISV48pFqso9MdVWNn/ncVKY8pQUMLhQqOiPQfv9MYwPtlnR9qTPx3jNml93Acm8NwqBeVxiL+eN/0CBWdW3vfQK6gmBqlzz+noLif8yTpVQFnxz5UC3ZUz3rPTSFAdXRrcarcR72Xa57B32jMi9kMq7/ZO0oHdYyrydFdESSm7oxoVJmEfJOIfcJKVsTt7NPrbPT+5pzmU8tHlDNnUUAGzWjdILz10skosg0+t0fJLvAd1o6iAH5RDUUL2jJIFJd8WZW5eYxIPgzCoT1XaZ5u9AN0AVM6DSottcRdHTEYVceHiWtnhHz02PH7UmPVgwfSJYvYXxoDaJewN5nJTJEzIrUivhOCGGD16j1D/mchYoPDPcKDA9hxW0=

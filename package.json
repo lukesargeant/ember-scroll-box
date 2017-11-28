@@ -1,6 +1,6 @@
 {
   "name": "ember-scroll-box",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A component providing scroll css hooks and actions.",
   "keywords": [
     "ember-addon"

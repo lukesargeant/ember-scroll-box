@@ -1,4 +1,4 @@
-# Ember-scroll-box
+# Ember-scroll-box [![Build Status](https://travis-ci.org/lukesargeant/ember-scroll-box.svg?branch=master)](https://travis-ci.org/lukesargeant/ember-scroll-box)
 
 A **scroll-box** provides CSS hooks that allow styling when the content is scrolled to the
 top or bottom and triggers actions at configurable scroll thresholds.
